@@ -40,11 +40,9 @@ public class CubeSpawner : MonoBehaviour
         float positionX = Random.Range(_minPositionXZ, _maxPositionXZ);
         float positionZ = Random.Range(_minPositionXZ, _maxPositionXZ);
 
-        cube.transform.position = new Vector3(positionX, _positionY, positionZ);
+        Vector3 spawnPosition = new Vector3(positionX, _positionY, positionZ);
 
-        cube.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
-        cube.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-        cube.gameObject.SetActive(true);
+        cube.Activate(spawnPosition);
 
         cube.OnLifeEnded += ReturnCube;
     }
