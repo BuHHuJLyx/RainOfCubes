@@ -256,7 +256,7 @@ GameObject:
   - component: {fileID: 575311982}
   - component: {fileID: 575311985}
   - component: {fileID: 575311984}
-  - component: {fileID: 575311983}
+  - component: {fileID: 575311986}
   m_Layer: 5
   m_Name: CubeText
   m_TagString: Untagged
@@ -283,20 +283,6 @@ RectTransform:
   m_AnchoredPosition: {x: 50, y: -100}
   m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 0, y: 1}
---- !u!114 &575311983
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 575311981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a870ef873d0e1648b4afe81fed4249b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpawnerStatsView
-  _text: {fileID: 575311984}
-  _name: "\u041A\u0443\u0431\u043E\u0432"
 --- !u!114 &575311984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -397,6 +383,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 575311981}
   m_CullTransparentMesh: 1
+--- !u!114 &575311986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 575311981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfe8eb2af7aa2d742b5618d1237dfd6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CubeStatsView
+  _spawner: {fileID: 858417016}
+  _text: {fileID: 575311984}
+  _name: "\u041A\u0443\u0431\u043E\u0432"
 --- !u!1 &657441245
 GameObject:
   m_ObjectHideFlags: 0
@@ -653,8 +654,6 @@ MonoBehaviour:
   _repeatRate: 0.5
   _poolCapacity: 15
   _poolMaxSize: 30
-  _shouldSpawn: 1
-  _statsView: {fileID: 575311983}
   _bombSpawner: {fileID: 1561659218}
 --- !u!4 &858417017
 Transform:
@@ -957,7 +956,7 @@ GameObject:
   - component: {fileID: 1202005481}
   - component: {fileID: 1202005484}
   - component: {fileID: 1202005483}
-  - component: {fileID: 1202005482}
+  - component: {fileID: 1202005485}
   m_Layer: 5
   m_Name: BombText
   m_TagString: Untagged
@@ -984,20 +983,6 @@ RectTransform:
   m_AnchoredPosition: {x: -50, y: -100}
   m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 1, y: 1}
---- !u!114 &1202005482
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1202005480}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a870ef873d0e1648b4afe81fed4249b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpawnerStatsView
-  _text: {fileID: 1202005483}
-  _name: "\u0411\u043E\u043C\u0431"
 --- !u!114 &1202005483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1098,6 +1083,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1202005480}
   m_CullTransparentMesh: 1
+--- !u!114 &1202005485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202005480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aabe4643d2a3dcf4a866e5e315798384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BombStatsView
+  _spawner: {fileID: 1561659218}
+  _text: {fileID: 1202005483}
+  _name: "\u0411\u043E\u043C\u0431"
 --- !u!1 &1205737358
 GameObject:
   m_ObjectHideFlags: 0
@@ -1331,8 +1331,6 @@ MonoBehaviour:
   _repeatRate: 0.5
   _poolCapacity: 15
   _poolMaxSize: 30
-  _shouldSpawn: 0
-  _statsView: {fileID: 1202005482}
 --- !u!1 &1647477692
 GameObject:
   m_ObjectHideFlags: 0

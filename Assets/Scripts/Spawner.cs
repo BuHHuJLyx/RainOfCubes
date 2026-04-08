@@ -11,9 +11,6 @@ public class Spawner<T> : MonoBehaviour where T : Item<T>
     [SerializeField] private int _poolCapacity;
     [SerializeField] private int _poolMaxSize;
 
-    [SerializeField] private bool _shouldSpawn = true;
-    [SerializeField] private SpawnerStatsView _statsView;
-
     private ObjectPool<T> _pool;
     private WaitForSeconds _delay;
 
@@ -24,12 +21,17 @@ public class Spawner<T> : MonoBehaviour where T : Item<T>
     private int _spawnedAmount;
     private int _createdAmount;
 
+    public Action<int> SpawnedChanged;
+    public Action<int> CreatedChanged;
+    public Action<int> ActiveChanged;
+
     private void Awake()
     {
         _pool = new ObjectPool<T>(
             createFunc: () =>
             {
                 _createdAmount++;
+                CreatedChanged?.Invoke(_createdAmount);
                 return Instantiate(_prefab);
             },
             actionOnGet: (item) => SpawnItem(item),
@@ -42,22 +44,24 @@ public class Spawner<T> : MonoBehaviour where T : Item<T>
 
         _delay = new WaitForSeconds(_repeatRate);
     }
-
-    private void Start()
+    
+    public IEnumerator Spawn()
     {
-        if (_shouldSpawn)
-            StartCoroutine(Spawn());
-    }
-
-    private void Update()
-    {
-        _statsView.UpdateView(_spawnedAmount, _createdAmount, _pool.CountActive);
+        while (enabled)
+        {
+            GetFromPool();
+            yield return _delay;
+        }
     }
 
     public void SpawnAt(Vector3 position)
     {
         _spawnedAmount++;
+        SpawnedChanged?.Invoke(_spawnedAmount);
+        
         T item = _pool.Get();
+        ActiveChanged?.Invoke(_pool.CountActive);
+            
         item.Activate(position);
     }
 
@@ -76,21 +80,16 @@ public class Spawner<T> : MonoBehaviour where T : Item<T>
     private void GetFromPool()
     {
         _spawnedAmount++;
+        SpawnedChanged?.Invoke(_spawnedAmount);
+        
         _pool.Get();
+        ActiveChanged?.Invoke(_pool.CountActive);
     }
 
     protected void ReturnToPool(T item)
     {
         item.LifeEnded -= ReturnToPool;
         _pool.Release(item);
-    }
-
-    private IEnumerator Spawn()
-    {
-        while (enabled)
-        {
-            GetFromPool();
-            yield return _delay;
-        }
+        ActiveChanged?.Invoke(_pool.CountActive);
     }
 }

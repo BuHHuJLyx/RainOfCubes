@@ -4,15 +4,20 @@ public class CubeSpawner : Spawner<Cube>
 {
     [SerializeField] private BombSpawner _bombSpawner;
     
+    private void Start()
+    {
+        StartCoroutine(Spawn());
+    }
+    
     protected override void SpawnItem(Cube cube)
     {
         base.SpawnItem(cube);
-        cube.Disappeared -= SpawnBomb;
-        cube.Disappeared += SpawnBomb;
+        cube.Disappeared += OnDisappeared;
     }
     
-    private void SpawnBomb(Vector3 position)
+    private void OnDisappeared(Cube cube)
     {
-        _bombSpawner.SpawnAt(position);
+        cube.Disappeared -= OnDisappeared;
+        _bombSpawner.SpawnAt(cube.transform.position);
     }
 }

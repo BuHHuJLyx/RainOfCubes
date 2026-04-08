@@ -8,7 +8,7 @@ public class Cube : Item<Cube>
 {
     private ColorChanger _color;
 
-    public Action<Vector3> Disappeared;
+    public Action<Cube> Disappeared;
 
     protected override void Awake()
     {
@@ -33,7 +33,7 @@ public class Cube : Item<Cube>
 
         Renderer.material.color = _color.SetDefaultColor();
 
-        Disappeared?.Invoke(transform.position);
+        Disappeared?.Invoke(this);
         LifeEnded?.Invoke(this);
     }
 }
